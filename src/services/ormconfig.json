@@ -1,0 +1,14 @@
+// src/config/typeorm.config.ts
+
+import { DataSourceOptions } from "typeorm";
+
+export const typeOrmConfig: DataSourceOptions = {
+type: 'postgres',
+host: process.env.DB_HOST || 'localhost',
+port: parseInt(process.env.DB_PORT) || 5432,
+username: process.env.DB_USERNAME || 'postgres',
+password: process.env.DB_PASSWORD || 'pass',
+database: process.env.DB_DATABASE || 'b1',
+entities: [__dirname + '/../**/*.entity.ts'],
+synchronize: true,
+};

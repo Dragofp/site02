@@ -1,0 +1,69 @@
+<div class="container mt-5">
+  <h2>Alunos</h2>
+  <ul class="list-group mb-3">
+    <li class="list-group-item d-flex justify-content-between align-items-center" *ngFor="let aluno of alunos">
+      {{ aluno.nome }}
+      <div>
+        <button class="btn editar btn-sm me-2" (click)="editarAluno(aluno)">Editar</button>
+        <button class="btn btn-danger btn-sm" (click)="excluirAluno(aluno.codigo)">Excluir</button>
+      </div>
+    </li>
+  </ul>
+
+  <h2>Inserir Aluno</h2>
+  <form class="mb-3" (submit)="cadastrarAluno({ nome: nomeAluno })">
+    <div class="mb-3">
+      <label for="nomeAluno" class="form-label">Nome:</label>
+      <input type="text" id="nomeAluno" class="form-control" [(ngModel)]="nomeAluno" name="nomeAluno">
+    </div>
+    <button type="submit" class="btn btn-primary">Enviar</button>
+  </form>
+
+  <h2>Cursos</h2>
+  <ul class="list-group mb-3">
+    <li class="list-group-item d-flex justify-content-between align-items-center" *ngFor="let curso of cursos">
+      {{ curso.descricao }}
+      <div>
+        <button class="btn editar btn-sm me-2" (click)="editarCurso(curso)">Editar</button>
+        <button class="btn btn-danger btn-sm" (click)="excluirCurso(curso.codigo)">Excluir</button>
+      </div>
+    </li>
+  </ul>
+
+  <h2>Inserir Curso</h2>
+  <form class="mb-3" (submit)="cadastrarCurso({ descricao: descricaoCurso, ementa: ementaCurso })">
+    <div class="mb-3">
+      <label for="descricaoCurso" class="form-label">Descrição:</label>
+      <input type="text" id="descricaoCurso" class="form-control" [(ngModel)]="descricaoCurso" name="descricaoCurso">
+    </div>
+    <div class="mb-3">
+      <label for="ementaCurso" class="form-label">Ementa:</label>
+      <input type="text" id="ementaCurso" class="form-control" [(ngModel)]="ementaCurso" name="ementaCurso">
+    </div>
+    <button type="submit" class="btn btn-primary">Enviar</button>
+  </form>
+
+  <h2>Alunos por Curso</h2>
+  <ul class="list-group mb-3">
+    <li class="list-group-item" *ngFor="let aluno of alunosCursos">
+      <strong>Aluno:</strong> {{ aluno.aluno_nome }}
+      <ul class="list-group mt-2">
+        <li class="list-group-item d-flex justify-content-between align-items-center" *ngFor="let curso of aluno.cursos">
+          Curso: {{ curso.curso_descricao }}
+          <button class="btn btn-danger btn-sm" (click)="removerMatricula(aluno.aluno_id, curso.curso_id)">Remover</button>
+        </li>
+      </ul>
+    </li>
+  </ul>
+
+  <div class="mb-3">
+    <select class="form-select mb-2" [(ngModel)]="selectedCurso">
+      <option *ngFor="let curso of cursos" [value]="curso.codigo">{{ curso.descricao }}</option>
+    </select>
+    <select class="form-select mb-2" [(ngModel)]="selectedAluno">
+      <option *ngFor="let aluno of alunos" [value]="aluno.codigo">{{ aluno.nome }}</option>
+    </select>
+    <button class="btn matricular me-2" (click)="matricularAluno()">Matricular Aluno</button>
+    <button class="btn limpar" (click)="limparDados()">Limpar Todos os Dados</button>
+  </div>
+</div>
